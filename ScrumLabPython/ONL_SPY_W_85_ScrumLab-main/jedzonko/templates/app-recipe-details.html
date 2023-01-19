@@ -1,0 +1,75 @@
+{% extends "__base__.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="dashboard-content border-dashed p-3 m-4 view-height">
+
+    <div class="mt-4 ml-4 mr-4">
+        <div class="row border-bottom border-3">
+            <div class="col"><h3 class="color-header text-uppercase">Szczegóły
+                przepisu</h3></div>
+            <div class="col d-flex justify-content-end mb-2">
+                <a href="/plan/add-recipe/" class="btn btn-secondary rounded-0 pr-4 pl-4">Dodaj przepis do planu</a>
+            </div>
+            <div>
+                <a href="/recipe/list/" class="btn btn-success rounded-0 pr-5 pl-5">Powrót</a>
+            </div>
+        </div>
+    </div>
+        <table class="table borderless">
+            <tbody>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Nazwa Przepisu</th>
+                <td class="col-7">
+                    {{ recipe.name }}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Opis przepisu</th>
+                <td class="col-7">
+                    {{ recipe.description }}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Przygotowanie (minuty)</th>
+                <td class="col-7">
+                    {{ recipe.preparation_time }}
+                </td>
+            </tr>
+             <tr class="d-flex">
+                <th scope="row" class="col-2">Liczba polubień</th>
+                <td class="col-7">
+                    {{ recipe.votes }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" class="w-100 p-1" value="{{ recipe.id }}" name="recipe_id" hidden>
+                <button type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4" name="click" value="like"> polub przepis </button>
+                <button type="submit" class="btn btn-danger rounded-0 pt-0 pb-0 pr-4 pl-4" name="click" value="dont_like"> nie lubię przepisu </button>
+            </form>
+        </p>
+
+        <div class="row d-flex">
+            <div class="col-5 border-bottom border-3"><h3
+                    class="text-uppercase">Sposób przygotowania</h3></div>
+            <div class="col-2"></div>
+            <div class="col-5 border-bottom border-3"><h3
+                    class="text-uppercase">Składniki</h3></div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-5 p-4">
+                {{ recipe.preparation_method }}
+            </div>
+            <div class="col-2"></div>
+            <ul class="col-5 p-4 list-unstyled">
+                {{ recipe.ingredients }}
+            </ul>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
